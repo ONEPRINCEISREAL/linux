@@ -55,3 +55,46 @@ Example:
 Understanding Linux architecture helps DevOps engineers work more confidently
 with servers, containers, and production systems.
 
+## Linux Process States
+
+In Linux, a process is a running instance of a program.
+Each process exists in a specific state.
+
+# Running (R)
+The process is currently executing on the CPU.
+
+# Sleeping (S / D)
+The process is waiting for an event or resource.
+S → Interruptible sleep
+D → Uninterruptible sleep (usually I/O)
+
+# Stopped (T)
+The process has been paused manually (for example using Ctrl + Z).
+
+# Zombie (Z)
+The process has finished execution but still exists in the process table
+because the parent process has not collected its exit status.
+
+## Common Linux Commands 
+These are some commands commonly used in daily Linux and DevOps work:
+
+ps – Displays running processes
+
+top – Shows real-time CPU and memory usage
+
+systemctl – Manages system services
+
+df – Checks disk space usage
+
+free – Displays memory usage
+
+## Why Process Knowledge Matters for DevOps
+Understanding process states helps DevOps engineers to:
+
+Identify stuck or zombie processes
+
+Debug high CPU or memory usage
+
+Restart or manage services efficiently
+
+Handle production incidents quickly
