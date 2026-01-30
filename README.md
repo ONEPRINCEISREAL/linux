@@ -94,3 +94,155 @@ Understanding process states helps DevOps engineers to:
 - Restart or manage services efficiently
 
 - Handle production incidents quickly
+
+
+# Linux User Creation & EC2 SSH Connection Guide
+
+This README explains how to create a Linux user, understand related commands, and connect to an AWS EC2 instance using SSH from Windows, step by step.
+
+## Creating a New Linux User
+Command
+sudo useradd -m -s /bin/bash prince
+
+Explanation
+
+sudo
+Runs the command with root (administrator) privileges.
+Required because only the root user can create new users.
+
+useradd
+Creates a new user.
+
+-m
+Creates a home directory for the user.
+# Without -m, the user will be created without a home folder.
+
+-s /bin/bash
+Sets Bash as the default login shell.
+
+prince
+Username (replace it with any name you want).
+
+(Optional) Set Password for the User
+sudo passwd prince
+
+# Verify User Creation
+getent passwd prince
+
+Explanation
+
+getent = get entries
+
+Fetches user information from system databases (like /etc/passwd).
+
+# Important Note (Windows Users)
+
+You cannot directly connect using PowerShell or CMD without proper permissions and setup.
+For now, use Git Bash to avoid permission issues.
+
+# Connecting to an EC2 Instance Using SSH (From Windows)
+Step 1: Open Command Prompt
+
+Press Win + R
+
+Type cmd
+
+Press Enter
+
+Step 2: Navigate to PEM File Location
+cd path/to/your/pem-file
+
+
+Confirm your current directory:
+
+pwd
+
+Step 3: Copy SSH Command from EC2
+
+Go to AWS Console
+
+Open EC2
+
+Select your instance
+
+Click Connect
+
+Go to SSH client
+
+Copy the command shown there
+
+Example:
+
+ssh -i myserver.pem ec2-user@<IP-address>
+
+# Connecting One EC2 Instance to Another EC2 (Key-Based SSH)
+Step 1: Connect to the First EC2 Instance
+ssh -i myserver.pem ec2-user@<IP-address>
+
+Step 2: Go to the SSH Directory
+ls -a
+cd .ssh
+
+
+(.ssh is a hidden folder)
+
+Step 3: Generate SSH Key
+ssh-keygen
+
+
+When asked for a password, press Enter three times.
+
+Step 4: Check Generated Keys
+ls
+
+
+You will see:
+
+id_ed25519 (private key)
+
+id_ed25519.pub (public key)
+
+## Do NOT use the .pub file to connect.
+Always use the private key.
+
+Step 5: Copy Public Key to the Second EC2
+
+Open AWS Console
+
+Go to the second EC2 instance
+
+Click EC2 Instance Connect
+
+Open terminal
+
+Run:
+
+cd .ssh
+ls
+vim authorized_keys
+
+
+Steps inside vim:
+
+Press i (insert mode)
+
+Paste the public key from the first EC2
+
+Press Esc
+
+Type :wq and press Enter
+
+Step 6: Test File Creation (Optional)
+echo "Hello, this is Prince" > prince.txt
+
+Step 7: Connect to Second EC2 from First EC2
+ssh -i id_ed25519 ec2-user@<second-ec2-ip>
+
+
+✅ You are now connected.
+
+Step 8: Exit
+exit
+
+
+🎉 Task Complete
