@@ -239,13 +239,13 @@ Step 7: Connect to Second EC2 from First EC2
 ssh -i id_ed25519 ec2-user@<second-ec2-ip>
 
 
-✅ You are now connected.
+ You are now connected.
 
 Step 8: Exit
 exit
 
 
-🎉 Task Complete
+ Task Complete
 
 
 
@@ -263,7 +263,7 @@ SCP uses SSH, so SSH access must be enabled
 Works best with private IPs when systems are in the same network (like EC2 instances in the same VPC)
 
 # Prerequisites (Ubuntu)
-1️⃣ Set a Password for the Ubuntu User
+1️1 Set a Password for the Ubuntu User
 
 You must set a password if password-based SSH/SCP is required.
 
@@ -272,16 +272,16 @@ sudo passwd username
 
 Replace username with your actual Ubuntu username.
 
-2️⃣ Update the System
+2 Update the System
 sudo apt-get update
 
-3️⃣ Install Required Packages
+3️ Install Required Packages
 
 (Usually SSH is already installed, but just in case)
 
 sudo apt-get install openssh-server -y
 
-4️⃣ Find the IP Address
+4️ Find the IP Address
 ifconfig
 
 
